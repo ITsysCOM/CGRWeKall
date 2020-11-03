@@ -41,6 +41,7 @@ import (
 	"github.com/cgrates/cgrates/engine"
 	"github.com/cgrates/cgrates/services"
 	"github.com/cgrates/cgrates/servmanager"
+	"github.com/cgrates/cgrates/sla"
 	"github.com/cgrates/cgrates/utils"
 	"github.com/cgrates/rpcclient"
 )
@@ -541,6 +542,10 @@ func main() {
 
 	// Rpc/http server
 	server := cores.NewServer(caps)
+
+	// SlaSV1 is a special RPC object, only available locally, not integrated in any way with the rest
+	server.RpcRegister(sla.NewSlaSv1(caps))
+
 	if len(cfg.HTTPCfg().DispatchersRegistrarURL) != 0 {
 		server.RegisterHttpFunc(cfg.HTTPCfg().DispatchersRegistrarURL, dispatcherh.Registar)
 	}
