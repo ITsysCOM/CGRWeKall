@@ -9,6 +9,7 @@ package sla
 import (
 	"time"
 
+	"github.com/cgrates/cgrates/cores"
 	"github.com/cgrates/cgrates/utils"
 )
 
@@ -35,13 +36,13 @@ type SlaInfo struct {
 	Hash string
 }
 
-func NewSlaSv1(cncReqs *utils.ConcReqs) *SlaSv1 {
+func NewSlaSv1(cncReqs *cores.Caps) *SlaSv1 {
 	return &SlaSv1{cncReqs: cncReqs}
 }
 
 // SlaSv1 exports RPC
 type SlaSv1 struct {
-	cncReqs *utils.ConcReqs
+	cncReqs *cores.Caps
 }
 
 // Call implements rpcclient.ClientConnector interface for internal RPC
